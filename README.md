@@ -70,3 +70,6 @@ EscalateIdea/
 
 ### langchain中调用
 如要在langchain中使用，可参考我另外的langchainQA项目，其中已封装好 模型和嵌入模型的代码
+
+## 注意
+fastapi默认引用的是Qwen3 0.6b官方模型，如有需要可自行调整
