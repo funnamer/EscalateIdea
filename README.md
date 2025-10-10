@@ -12,20 +12,20 @@ EscalateIdea/
 │   ├── Chinese-medical-dialogue-data-master/
 │   ├── train.json
 │   └── val.json
-├── embedding/
+├── embedding/                # 存放 Qwen3 0.6B-embedding 模型
 │   └── Qwen3-Embedding-0.6B/
 ├── finetune_res/
 │   ├── logs/
-│   └── output/
-├── lora_fine-tune/
-│   ├── combie.py
+│   └── output/               # 微调过程中自动生成的临时输出目录（train.py 运行后产生）
+├── lora_fine-tune/           # 模型微调相关代码
+│   ├── combie.py             # （注：推测为 LoRA 权重与原模型融合脚本，原结构中对应 combine.py）
 │   ├── lora_instruction.py
 │   ├── model_info.py
 │   ├── qa_dataset.py
-│   ├── test.py
-│   └── train.py
-└── model/
-    ├── lora_output/
+│   ├── test.py               # 微调后模型测试脚本
+│   └── train.py              # 微调训练主脚本
+└── model/                    # 存放 Qwen3 0.6B 基础模型
+    ├── lora_output/          # 模型融合后生成的最终微调模型目录（combie.py 运行后产生）
     └── Qwen3-0.6B/
 ```
 
