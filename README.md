@@ -3,16 +3,29 @@
 本项目基于医疗问答数据集，对Qwen3 0.6B模型进行微调，并通过FastAPI实现模型部署，支持下游任务调用。
 
 ## 项目结构
-project-root/
-├── model/                # 存放 Qwen3 0.6B 基础模型
-├── embedding/            # 存放 Qwen3 0.6B-embedding 模型
-├── lora_fine-tune/       # 模型微调相关代码
-│   ├── train.py          # 微调训练主脚本
-│   ├── combine.py        # LoRA 权重与原模型融合脚本
-│   └── test.py           # 微调后模型测试脚本
-├── output/               # 微调过程中自动生成的临时输出目录（train.py 运行后产生）
-├── lora_output/          # 模型融合后生成的最终微调模型目录（combine.py 运行后产生）
-└── fastapi/              # FastAPI 部署相关代码（用于模型集成与下游调用）
+EscalateIdea/
+├── api/
+│   ├── qwen3_api.py
+│   └── qwen3_embedding_api.py
+├── data/
+│   ├── Chinese-medical-dialogue-data-master/
+│   ├── train.json
+│   └── val.json
+├── embedding/
+│   └── Qwen3-Embedding-0.6B/
+├── finetune_res/
+│   ├── logs/
+│   └── output/
+├── lora_fine-tune/
+│   ├── combie.py
+│   ├── lora_instruction.py
+│   ├── model_info.py
+│   ├── qa_dataset.py
+│   ├── test.py
+│   └── train.py
+└── model/
+    ├── lora_output/
+    └── Qwen3-0.6B/
 
 
 ## 环境准备
@@ -28,7 +41,7 @@ project-root/
    - 放置在 `embedding` 文件夹下
 
 ### 数据集下载
-
+```https://github.com/Toyhom/Chinese-medical-dialogue-data```
 ### 环境配置
 
 ## 快速开始
