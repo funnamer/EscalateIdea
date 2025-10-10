@@ -3,6 +3,7 @@
 本项目基于医疗问答数据集，对Qwen3 0.6B模型进行微调，并通过FastAPI实现模型部署，支持下游任务调用。
 
 ## 项目结构
+```
 EscalateIdea/
 ├── api/
 │   ├── qwen3_api.py
@@ -26,7 +27,7 @@ EscalateIdea/
 └── model/
     ├── lora_output/
     └── Qwen3-0.6B/
-
+```
 
 ## 环境准备
 
