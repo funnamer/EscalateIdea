@@ -1,6 +1,7 @@
 # 医疗问答系统 - Qwen3 0.6B模型微调与部署
 
 本项目基于医疗问答数据集，对Qwen3 0.6B模型进行微调，并通过FastAPI实现模型部署，支持下游任务调用。
+在langchain中调用api进行使用可参考我另外一个项目 `https://github.com/funnamer/langchainQA`
 
 ## 项目结构
 ```
