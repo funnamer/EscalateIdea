@@ -34,11 +34,11 @@ EscalateIdea/
 ### 模型下载
 
 1. **Qwen3 0.6B基础模型**：
-   - 从ModelScope下载Qwen3 0.6B模型
+   [- 从ModelScope下载Qwen3 0.6B模型](https://www.modelscope.cn/models/Qwen/Qwen3-0.6B)
    - 放置在 `model` 文件夹下
 
 2. **Qwen3 0.6B-embedding模型**：
-   - 从ModelScope下载Qwen3 0.6B-embedding模型
+   [- 从ModelScope下载Qwen3 0.6B-embedding模型](https://www.modelscope.cn/models/Qwen/Qwen3-Embedding-0.6B)
    - 放置在 `embedding` 文件夹下
 
 ### 数据集下载
