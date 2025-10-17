@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 import torch
 from torch.utils.data import DataLoader
 from torch.utils.tensorboard import SummaryWriter
@@ -20,29 +19,22 @@ def train_model(model, train_loader, val_loader, optimizer, gradient_accumulatio
             input_ids = data['input_ids'].to(device, dtype=torch.long)
             attention_mask = data['attention_mask'].to(device, dtype=torch.long)
             labels = data['labels'].to(device, dtype=torch.long)
-            # 前向传播
             outputs = model(
                 input_ids=input_ids,
                 attention_mask=attention_mask,
                 labels=labels,
             )
             loss = outputs.loss
-            # 反向传播，计算当前梯度
             loss.backward()
-            # 梯度累积步数
             if (index % gradient_accumulation_steps == 0 and index != 0) or index == len(train_loader) - 1:
-                # 更新网络参数
                 optimizer.step()
-                # 清空过往梯度
                 optimizer.zero_grad()
                 writer.add_scalar('Loss/train', loss, batch_step)
                 batch_step += 1
-            # 100轮打印一次 loss
             if index % 100 == 0 or index == len(train_loader) - 1:
                 time2 = time.time()
                 tqdm.write(
                     f"{index}, epoch: {epoch} -loss: {str(loss)} ; each step's time spent: {(str(float(time2 - time1) / float(index + 0.0001)))}")
-        # 验证
         model.eval()
         val_loss = validate_model(model, val_loader, device)
         writer.add_scalar('Loss/val', val_loss, epoch)
@@ -51,7 +43,7 @@ def train_model(model, train_loader, val_loader, optimizer, gradient_accumulatio
         model.save_pretrained(model_output_dir)
 
 
-def validate_model(model, val_loader, device):  # 参数顺序改为：model, 验证数据加载器, 设备
+def validate_model(model, val_loader, device):
     running_loss = 0.0
     with torch.no_grad():
         for _, data in enumerate(tqdm(val_loader, file=sys.stdout, desc="Validation Data")):
@@ -69,11 +61,8 @@ def validate_model(model, val_loader, device):  # 参数顺序改为：model, �
 
 
 def main():
-    # 基础模型位置
     model_name = "../model/Qwen3-0.6B"
-    # 训练集
     train_json_path = "../data/train.json"
-    # 验证集
     val_json_path = "../data/val.json"
     max_source_length = 128
     max_target_length = 256
@@ -85,12 +74,9 @@ def main():
     lora_alpha = 32
     model_output_dir = "../finetune_res/output"
     logs_dir = "../finetune_res/output"
-    # 设备
     device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
-    # 加载分词器和模型
     tokenizer = AutoTokenizer.from_pretrained(model_name, trust_remote_code=True)
     model = AutoModelForCausalLM.from_pretrained(model_name, trust_remote_code=True)
-    # setup peft
     peft_config = LoraConfig(
         task_type=TaskType.CAUSAL_LM,
         target_modules=["q_proj", "k_proj", "v_proj", "o_proj", "gate_proj", "up_proj", "down_proj"],
@@ -142,3 +128,4 @@ def main():
 
 if __name__ == '__main__':
     main()
+
